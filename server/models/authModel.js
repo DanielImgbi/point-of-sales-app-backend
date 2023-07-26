@@ -24,27 +24,28 @@ const userSchema = new Schema({
   },
 });
 
-userSchema.statics.signupUser = async function (name, email, password) {
+userSchema.statics.signupUser = async function (name, post, email, password) {
   // validation
   if (!name || !password || !email) {
     throw new Error("all fields must be filled!");
   }
-  if (!validator.isEmail(email)) {
-    throw Error("Email is not valid!");
-  }
-  if (!validator.isStrongPassword(password)) {
-    throw Error("Please provide a strong password!");
-  }
+  // if (!validator.isEmail(email)) {
+  //   throw Error("Email is not valid!");
+  // }
+  // if (!validator.isStrongPassword(password)) {
+  //   throw Error("Please provide a strong password!");
+  // }
 
   const exist = await this.findOne({ email });
   if (exist) {
     throw Error("email already in use!");
   }
 
-  const salt = bcrypt.genSalt(10);
-  const hash = bcrypt.hash(password, salt);
+  const salt = await bcrypt.genSalt(10);
+  const hash = await bcrypt.hash(password, salt);
+  console.log(hash);
 
-  const user = await this.create({ name, email, password: hash });
+  const user = await this.create({ name, post, email, password: hash });
 
   return user;
 };

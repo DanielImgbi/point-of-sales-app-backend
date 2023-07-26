@@ -1,19 +1,19 @@
 const express = require("express");
 const {
-  getMenu,
-  getSingleData,
   addMenu,
   deleteMenu,
   updateMenu,
-} = require("../controllers/menuControllers");
+} = require("../controllers/adminRouteController");
+const confirmUser = require("../middlewares/confirmAuth");
+const isAdmin = require("../middlewares/isAdmin");
 
 const router = express.Router();
 
-// get route
-router.get("/", getMenu);
+// checking if user is valid and authorized
+router.use(confirmUser);
 
-// get a single menu route
-router.get("/:id", getSingleData);
+// admin verification
+router.use(isAdmin);
 
 // post route
 router.post("/", addMenu);
