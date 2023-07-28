@@ -4,24 +4,24 @@ const {
   deleteMenu,
   updateMenu,
 } = require("../controllers/adminRouteController");
-const confirmUser = require("../middlewares/confirmAuth");
-const isAdmin = require("../middlewares/isAdmin");
+// const confirmUser = require("../middlewares/confirmAuth");
+// const isAdmin = require("../middlewares/isAdmin");
 
 const router = express.Router();
 
 // checking if user is valid and authorized
-router.use(confirmUser);
+// router.use(confirmUser);
 
 // admin verification
-router.use(isAdmin);
+// router.use(isAdmin);
 
 // post route
-router.post("/", addMenu);
+router.post("/menu", addMenu);
 
 // delete route
-router.delete("/:id", deleteMenu);
+router.delete("/menu/:id", deleteMenu);
 
 // patch route
-router.patch("/:id", updateMenu);
+router.patch("/menu/:id", updateMenu);
 
 module.exports = router;
