@@ -15,18 +15,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
-    origin: "https://danieldelicacy.onrender.com",
+    origin: ["http://localhost:5173", "https://danieldelicacy.onrender.com"],
   })
 );
 
 // auth routes
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 
 //admin routes
-app.use("/admin", adminRoutes);
+app.use("/api/admin", adminRoutes);
 
 // menu routes
-app.use("api/menu", menuRoutes);
+app.use("/api/menu", menuRoutes);
 
 app.use((req, res, next) => {
   console.log(req.body);
