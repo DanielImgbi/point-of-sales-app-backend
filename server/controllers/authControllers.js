@@ -22,6 +22,8 @@ const signupUser = async (req, res) => {
 // login user controller
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
+  console.log({ controller: req.body });
+
   try {
     const user = await User.login(email, password);
     const token = createToken(user._id);

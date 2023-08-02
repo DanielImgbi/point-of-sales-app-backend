@@ -15,13 +15,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://danieldelicacy.onrender.com"],
+    origin: "https://danieldelicacy.onrender.com",
   })
 );
-app.use((req, res, next) => {
-  console.log(req.url, req.method);
-  next();
-});
 
 // auth routes
 app.use("/auth", authRoutes);
@@ -30,13 +26,19 @@ app.use("/auth", authRoutes);
 app.use("/admin", adminRoutes);
 
 // menu routes
-app.use("/menu", menuRoutes);
+app.use("api/menu", menuRoutes);
+
+app.use((req, res, next) => {
+  console.log(req.body);
+  console.log(req.url, req.method);
+  next();
+});
 
 // connect to database
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {
-    app.listen(process.env.PORT || 5173 || 4000, () => {
+    app.listen(process.env.PORT || 4000, () => {
       console.log("listenning on port", process.env.PORT);
     });
   })

@@ -29,12 +29,12 @@ userSchema.statics.signupUser = async function (name, post, email, password) {
   if (!name || !password || !email) {
     throw new Error("all fields must be filled!");
   }
-  // if (!validator.isEmail(email)) {
-  //   throw Error("Email is not valid!");
-  // }
-  // if (!validator.isStrongPassword(password)) {
-  //   throw Error("Please provide a strong password!");
-  // }
+  if (!validator.isEmail(email)) {
+    throw Error("Email is not valid!");
+  }
+  if (!validator.isStrongPassword(password)) {
+    throw Error("Please provide a strong password!");
+  }
 
   const exist = await this.findOne({ email });
   if (exist) {
