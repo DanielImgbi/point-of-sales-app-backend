@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
-    origin: "https://denieldelicacy.onrender.com",
+    origin: "https://danieldelicacy.onrender.com/",
   })
 );
 
